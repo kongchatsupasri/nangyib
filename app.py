@@ -5,8 +5,8 @@ import json
 import math
 #%%
 
-compenent_d = json.load(open('./set_d.json'))
-sku_df = pd.read_excel('./sku.xlsx', skiprows=2)
+compenent_d = json.load(open('set_d.json'))
+sku_df = pd.read_excel('sku.xlsx', skiprows=2)
 # st.dataframe(sku_df)
 #%%
 wpp_sku = [
