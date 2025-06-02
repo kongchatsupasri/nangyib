@@ -117,7 +117,7 @@ if st.session_state.clicked:
                     if name not in d1.keys():
                         d1[name] = {'sku': sku, 'q': q}
                     else:
-                        d1[name] += q
+                        d1[name]['q'] += q
 
             # st.write(d1)
             #check nano
