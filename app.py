@@ -58,6 +58,12 @@ with col2:
 
 with col3:
     st.subheader('Lazada')
+    lazada_file = st.file_uploader(
+        label = 'Lazada',
+        accept_multiple_files = False, 
+        type = 'xlsx', 
+        label_visibility = 'hidden'
+    )
 
 
 if 'clicked' not in st.session_state:
@@ -88,6 +94,14 @@ if st.session_state.clicked:
 
         # st.dataframe(shopee_df)
         df = pd.concat([df, shopee_df], axis = 0).reset_index(drop = True)
+
+    if lazada_file:
+        lazada_df = pd.read_excel(lazada_file)
+        lazada_df = lazada_df[['orderItemId', 'sellerSku', 'variation']]
+        lazada_df['q'] = [1] * lazada_df.shape[0]
+        lazada_df.columns = ['order_id', 'sku', 'p', 'q']
+
+        df = pd.concat([df, lazada_df], axis = 0).reset_index(drop = True)
 
     if df.shape[0] != 0:
         for order_id in df['order_id'].unique():
