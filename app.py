@@ -5,6 +5,15 @@ import json
 import math
 import dataframe_image as dfi
 import datetime
+import os
+import subprocess
+try:
+    subprocess.run(["playwright", "install", "chromium"], check=True)
+    st.success("Playwright Chromium installation attempted successfully.")
+except subprocess.CalledProcessError as e:
+    st.error(f"Playwright Chromium installation failed: {e}")
+except FileNotFoundError:
+    st.error("Playwright command not found. Ensure 'playwright' is in requirements.txt.")
 #%%
 @st.cache_data
 def convert_df_to_img(df):
