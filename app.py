@@ -206,7 +206,7 @@ if st.session_state.clicked:
         st.download_button(
                             label="Download img",
                             data=img_bytes,
-                            file_name=f'nangyib_{datetime.datetime.today().strftime("%Y-%m-%d")}.jpb',
+                            file_name=f'nangyib_{datetime.datetime.today().strftime("%Y-%m-%d")}.jpg',
                             mime="image/jpg",
                         )
 
