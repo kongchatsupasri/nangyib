@@ -4,7 +4,13 @@ import pandas as pd
 import json
 import math
 #%%
-
+@st.cache_data
+def convert_df_to_img(df):
+    dfi.export(df, "df_image.jpg")
+    with open("df_image.jpg", "rb") as file:
+        img_bytes = file.read()
+    return img_bytes
+#%%
 compenent_d = json.load(open('set_d.json'))
 sku_df = pd.read_excel('sku.xlsx', skiprows=2)
 # st.dataframe(sku_df)
@@ -179,6 +185,14 @@ if st.session_state.clicked:
         result_df['pack'] = [False] * result_df.shape[0]
         result_df = result_df[['pack', 'item', 'q', 'sku']]
         result_df = result_df.sort_values(by = 'sku', ascending = True)
+
+        img_bytes = convert_df_to_img(result_df[[col for col in result_df.columns if col not in ['pack', 'sku']]])
+        st.download_button(
+                            label="Download img",
+                            data=img_bytes,
+                            file_name=f'nangyib_{datetime.datetime.today().strftime("%Y-%m-%d")}.jpb',
+                            mime="image/jpg",
+                        )
 
         st.data_editor(
             result_df,
