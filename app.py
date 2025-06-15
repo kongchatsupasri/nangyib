@@ -7,6 +7,7 @@ import dataframe_image as dfi
 import datetime
 import os
 import subprocess
+st.set_page_config(layout="wide")
 try:
     subprocess.run(["playwright", "install", "chromium"], check=True)
     st.success("Playwright Chromium installation attempted successfully.")
@@ -51,7 +52,7 @@ small_wpp_sku = [
 ]
 
 
-st.set_page_config(layout="wide")
+
 #%%
 col1, col2, col3 = st.columns(3)
 
