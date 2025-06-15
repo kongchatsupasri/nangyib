@@ -16,3 +16,4 @@ libxshmfence1
 libxtst6
 fonts-liberation
 xdg-utils
+fonts-thai-tlwg
