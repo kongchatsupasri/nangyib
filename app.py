@@ -16,7 +16,7 @@ st.set_page_config(layout="wide")
 # except FileNotFoundError:
 #     st.error("Playwright command not found. Ensure 'playwright' is in requirements.txt.")
 #%%
-pd.set_option('display.max_colwidth', 150)
+pd.set_option('display.max_colwidth', 200)
 pd.set_option('display.width', 200)
 pd.set_option('display.max_columns', None)
 #%%
