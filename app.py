@@ -8,13 +8,6 @@ import datetime
 import os
 import subprocess
 st.set_page_config(layout="wide")
-try:
-    subprocess.run(["playwright", "install", "chromium"], check=True)
-    st.success("Playwright Chromium installation attempted successfully.")
-except subprocess.CalledProcessError as e:
-    st.error(f"Playwright Chromium installation failed: {e}")
-except FileNotFoundError:
-    st.error("Playwright command not found. Ensure 'playwright' is in requirements.txt.")
 #%%
 pd.set_option('display.max_colwidth', 200)
 pd.set_option('display.width', 200)
@@ -202,14 +195,6 @@ if st.session_state.clicked:
         result_df = result_df[['pack', 'item', 'q', 'sku']]
         result_df = result_df.sort_values(by = 'sku', ascending = True)
 
-        img_bytes = convert_df_to_img(result_df[[col for col in result_df.columns if col not in ['pack', 'sku']]])
-        st.download_button(
-                            label="Download img",
-                            data=img_bytes,
-                            file_name=f'nangyib_{datetime.datetime.today().strftime("%Y-%m-%d")}.jpg',
-                            mime="image/jpg",
-                        )
-
         st.data_editor(
             result_df,
             column_config={
@@ -222,4 +207,31 @@ if st.session_state.clicked:
             disabled=['item', 'sku', 'q'],
             hide_index=True,
         )
+
+        try:
+            img_bytes = convert_df_to_img(result_df[[col for col in result_df.columns if col not in ['pack', 'sku']]])
+            st.download_button(
+                                label="Download img",
+                                data=img_bytes,
+                                file_name=f'nangyib_{datetime.datetime.today().strftime("%Y-%m-%d")}.jpg',
+                                mime="image/jpg",
+            )
+        except:
+            try:
+                subprocess.run(["playwright", "install", "chromium"], check=True)
+                st.success("Playwright Chromium installation attempted successfully.")
+
+                img_bytes = convert_df_to_img(result_df[[col for col in result_df.columns if col not in ['pack', 'sku']]])
+                st.download_button(
+                                    label="Download img",
+                                    data=img_bytes,
+                                    file_name=f'nangyib_{datetime.datetime.today().strftime("%Y-%m-%d")}.jpg',
+                                    mime="image/jpg",
+                )
+    
+                
+            except subprocess.CalledProcessError as e:
+                st.error(f"Playwright Chromium installation failed: {e}")
+            except FileNotFoundError:
+                st.error("Playwright command not found. Ensure 'playwright' is in requirements.txt.")
 #%%
